@@ -1,0 +1,63 @@
+<div class="flex flex-col justify-content w-full text-left mx-12">
+
+    <div class="flex flex-row justify-between mt-4">
+        <div>
+            <button mat-raised-button color="accent" class="mr-2" (click)="createNewMember()">Pievienot jaunu dalībnieku!</button>
+            <button mat-raised-button class="mr-2" (click)="createNewMembersType()">Pievienot jaunu dalībnieku veidu!</button>
+            <button mat-raised-button  (click)="openMembersTypesList()">Apskatīt dalībienku veidus!</button>
+        </div>
+        <div>
+            <b class="mr-2">Meklēt pēc uzvārda:</b>
+            <mat-form-field style="width: 200px;">
+              <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Ievadiet uzvārdu...">
+            </mat-form-field>
+        </div>
+    </div>
+
+    <table mat-table [dataSource]="membersList" class="bg-white border border-gray-300 my-6" matSort (matSortChange)="announceSortChange($event)">
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef class="py-2 px-3 border-b" mat-sort-header sortActionDescription="Sort by Id"> Id </th>
+            <td mat-cell *matCellDef="let member" class="py-2 px-3 border-b"> {{ member.id }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="morphy">
+            <th mat-header-cell *matHeaderCellDef class="py-2 px-3 border-b" mat-sort-header sortActionDescription="Sort by morphy"> Fiziska persona/uzņēmums </th>
+            <td mat-cell *matCellDef="let member" class="py-2 px-3 border-b"> {{ member.morphy === 'phy' ? 'Fiziska persona' : 'Uzņēmums' }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef class="py-2 px-3 border-b" mat-sort-header sortActionDescription="Sort by type"> Veids </th>
+            <td mat-cell *matCellDef="let member" class="py-2 px-3 border-b"> {{ member.type }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef class="py-2 px-3 border-b" mat-sort-header sortActionDescription="Sort by firstname"> Vārds </th>
+            <td mat-cell *matCellDef="let member" class="py-2 px-3 border-b"> {{ member.firstname }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastname">
+            <th mat-header-cell *matHeaderCellDef class="py-2 px-3 border-b" mat-sort-header sortActionDescription="Sort by lastname"> Uzvārds </th>
+            <td mat-cell *matCellDef="let member" class="py-2 px-3 border-b"> {{ member.lastname }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="company">
+            <th mat-header-cell *matHeaderCellDef class="py-2 px-3 border-b" mat-sort-header sortActionDescription="Sort by company"> Kompānija </th>
+            <td mat-cell *matCellDef="let member" class="py-2 px-3 border-b"> {{ member.company }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="py-2 px-3 border-b"> Darbības </th>
+            <td mat-cell *matCellDef="let member" class="py-2 px-3 border-b">
+                <button mat-stroked-button color="primary" class="mr-1 pl-2" (click)="openMemberDetails(member.id)"> <mat-icon>visibility</mat-icon> Apskatīt</button>
+                <button mat-stroked-button color="primary" class="mr-1 pl-2" (click)="updateMember(member.id)"> <mat-icon>edit</mat-icon> Rediģēt</button>
+                <button mat-stroked-button color="warn" class="mr-1" (click)="deleteMember(member.id)">Dzēst</button>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="['id', 'morphy', 'type', 'firstName', 'lastname', 'company', 'actions']"></tr>
+        <tr mat-row *matRowDef="let member; columns: ['id', 'morphy', 'type', 'firstName', 'lastname',  'company', 'actions'];" class="hover:bg-gray-100"></tr>
+    </table>
+
+    <mat-paginator [pageSize]="8" [pageSizeOptions]="[8, 16, 24]" showFirstLastButtons></mat-paginator>
+
+</div>

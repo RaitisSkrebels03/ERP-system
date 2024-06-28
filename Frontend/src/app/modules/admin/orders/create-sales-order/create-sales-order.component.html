@@ -1,0 +1,112 @@
+<div class="flex flex-col justify-content w-full text-left mx-12">
+    <form class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden">
+        <p class="text-lg font-medium">Pamatinformācija par pasūtījumu!</p>
+        <p class="text-secondary mb-8">
+            Lūdzu, norādiet pamatinformāciju par pasūtījumu
+        </p>
+        <fuse-alert [type]="'warn'" [ngClass]="{'hidden': !errorAlert}">
+            <span fuseAlertTitle>Paziņojums par kļūdu</span>
+            Pārbaudiet visus ievadītos datus un pārliecinieties, ka obligātie lauki ir aizpildīti!
+        </fuse-alert><br/>
+        <p class="font-medium ml-1 mb-1">Klienta atsauce</p>
+        <div class="flex mb-3">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Klienta atsauce'"
+                    [(ngModel)]="order.ref_customer"
+                    name="refCustomer"
+                    required>
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Projekts</p>
+        <mat-form-field class="w-80">
+         <mat-select [(ngModel)]="order.fk_project" name="type">
+           @for (project of projects; track project) {
+             <mat-option [value]="project.id">{{project.title}}</mat-option>
+           }
+         </mat-select>
+       </mat-form-field>
+
+       <mat-divider class="mt-6 mb-10"></mat-divider>
+       <p class="text-lg font-medium">Datumi</p>
+         <p class="text-secondary mb-8">
+           Lūdzu, norādiet datumus un laikus, kas ir saistīti ar šo pasūtījumu
+         </p>
+
+        <div class="flex flex-row mb-8">
+            <div class="mr-8">
+                <mat-label class="font-semibold">Pasūtījuma noformēšanas datums</mat-label><br/><br/>
+                <input matInput type="date" [(ngModel)]="date" name="date" (change)="onDateChange()">
+            </div>
+            <div>
+                <mat-label class="font-semibold">Plānotais piegādes datums</mat-label><br/><br/>
+                <input matInput type="datetime-local" [(ngModel)]="deliveryDate" name="deliveryDate" (change)="onDeliveryDateChange()">
+            </div>
+        </div>
+
+        <mat-divider class="mt-6 mb-10"></mat-divider>
+        <p class="text-lg font-medium">Nosacījumi</p>
+        <p class="text-secondary mb-8">
+            Lūdzu, norādiet informāciju pasūtījuma nosacījumiem
+        </p>
+
+        <p class="font-medium ml-1 mb-1">Pieejamības aizkave</p>
+        <div class="flex">
+            <mat-form-field class="w-80">
+                <mat-select [(ngModel)]="order.availability_id" name="availability">
+                    <mat-option value="2">1 diena</mat-option>
+                    <mat-option value="4">3 dienas</mat-option>
+                    <mat-option value="7">1 nedēļa</mat-option>
+                    <mat-option value="8">2 nedēļas</mat-option>
+                    <mat-option value="10">1 mēnesis</mat-option>
+                  </mat-select>
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Maksājuma nosacījumi</p>
+        <div class="flex">
+            <mat-form-field class="w-80">
+                <mat-select [(ngModel)]="order.cond_reglement_id" name="cond_reglement_id">
+                    <mat-option value="1">Saņēmšanas laikā</mat-option>
+                    <mat-option value="6">Pasūtīšanas laikā</mat-option>
+                    <mat-option value="9">10 dienu laikā</mat-option>
+                    <mat-option value="11">14 dienu laikā</mat-option>
+                    <mat-option value="2">1 mēneša laikā</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <mat-divider class="mt-6 mb-10"></mat-divider>
+
+        <p class="text-lg font-medium">Piezīmes</p>
+        <p class="text-secondary mb-8">
+            Šeit ir iespēja pievienot dažāda veida piezīmes
+        </p>
+        <div class="flex">
+            <editor class="w-full" apiKey="7mw30hi1hg2t8ifh31b587e0cvsfjrwannjoegg2hdg148f1"
+                [init]="{
+                    height: 300,
+                    base_url: '/tinymce',
+                    suffix: '.min',
+                    plugins: 'lists link image table wordcount'
+                }"
+                [(ngModel)]="order.note_public"
+                name="note"
+            ></editor>
+        </div>
+        
+        <div class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700">
+            <button mat-button
+            (click)="cancel()">
+                Atcelt
+            </button>
+            <button
+                class="px-6 ml-3"
+                mat-flat-button
+                [color]="'primary'"
+                (click)="save()">
+                Saglabāt
+            </button>
+        </div>
+    </form>
+</div>

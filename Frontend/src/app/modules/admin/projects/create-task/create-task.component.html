@@ -1,0 +1,110 @@
+<div class="flex flex-col justify-content w-full text-left mx-12">
+    <form class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden">
+        <p class="text-lg font-medium">Pamatinformācija par uzdevumu</p>
+        <p class="text-secondary mb-8">
+            Lūdzu, norādiet pamatinformāciju par uzdevumu, ieskaitot nosaukumu un atsauci.
+        </p>
+        <fuse-alert [type]="'warn'" [ngClass]="{'hidden': !errorAlert}">
+            <span fuseAlertTitle>Paziņojums par kļūdu</span>
+            Pārbaudītiet visus ievadītos datus un pārliecinieties, ka obligātie lauki ir aizpildīti!
+        </fuse-alert><br/>
+        <p class="font-medium ml-1 mb-1">Uzdevuma atsauce</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Uzdevuma atsauce'"
+                    [(ngModel)]="task.ref"
+                    name="ref"
+                    required>
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Nosaukums</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Nosaukums'"
+                    [(ngModel)]="task.label"
+                    name="label"
+                    required>
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Apraksts</p>
+        <div class="flex">
+            <editor class="w-full" apiKey="7mw30hi1hg2t8ifh31b587e0cvsfjrwannjoegg2hdg148f1"
+                [init]="{
+                    height: 200,
+                    base_url: '/tinymce',
+                    suffix: '.min',
+                    plugins: 'lists link image table wordcount'
+                }"
+                [(ngModel)]="task.description"
+                name="description"
+            ></editor>
+        </div>
+
+        <mat-divider class="mt-6 mb-10"></mat-divider>
+
+        <p class="text-lg font-medium">Projekta izpildes laiki, darba apjoms, progress</p>
+        <p class="text-secondary mb-8">
+            Lūdzu, norādiet informāciju projekta izpildes laikiem, darba apjomu un progresu
+        </p>
+        <div class="flex flex-row">
+            <div class="mr-6">
+                <mat-label class="font-semibold">Sākums</mat-label><br/><br/>
+                <input matInput type="datetime-local" placeholder="Sākuma datums" [(ngModel)]="dateStart" name="dateStart" (change)="onStartDateChange()">
+            </div>
+            <div>
+                <mat-label class="font-semibold">Beigas</mat-label><br/><br/>
+                <input matInput type="datetime-local" placeholder="Beigu datums" [(ngModel)]="dateEnd" name="dateEnd" (change)="onEndDateChange()">
+            </div>
+        </div>
+        <p class="font-medium ml-1 mb-1 mt-8">Darba apjoms (stundās un minūtēs) </p>
+        <div class="flex flex-row" style="width: 360px;">
+            <mat-form-field class="flex-auto" class="mr-3">
+                <input matInput type="number" placeholder="3" [(ngModel)]="hours" name="hours" min="0"/>
+            </mat-form-field>
+            <mat-form-field class="flex-auto" class="ml-3">
+                <input matInput type="number" placeholder="30" [(ngModel)]="minutes" name="minutes" min="0" max="60"/>
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Progress </p>
+        <div class="flex" style="width: 100px;">
+            <mat-form-field class="flex-auto">
+                <input matInput type="number" (input)="task.progress = $event.target.value.toString()" name="progress" class="mr-2" min="1" max="100" placeholder="50"/> %
+            </mat-form-field>
+        </div>
+
+        <mat-divider class="mt-6 mb-10"></mat-divider>
+    
+        <p class="text-lg font-medium">Budžets</p>
+        <p class="text-secondary mb-8">
+            Lūdzu, norādiet informāciju par uzdevuma budžētu
+        </p>
+        <p class="font-medium ml-1 mb-1">Budžets (eiro)</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Budžets (eiro)'"
+                    [(ngModel)]="task.budget_amount"
+                    name="budgetAmount">
+            </mat-form-field>
+        </div>
+
+        <div class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700">
+            <button mat-button
+            (click)="cancel()">
+                Atcelt
+            </button>
+            <button
+                class="px-6 ml-3"
+                mat-flat-button
+                [color]="'primary'"
+                (click)="save()">
+                Saglabāt
+            </button>
+        </div>
+    </form>
+</div>

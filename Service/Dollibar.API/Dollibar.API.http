@@ -1,0 +1,6 @@
+@Dollibar.API_HostAddress = http://localhost:5172
+
+GET {{Dollibar.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

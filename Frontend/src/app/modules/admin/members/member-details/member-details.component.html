@@ -1,0 +1,86 @@
+<div class="flex flex-col justify-content w-full text-left mx-96">
+    <table class="min-w-full text-left text-lg font-light text-surface dark:text-white bg-white border border-gray-300 my-6 rounded-lg">
+        <tbody>
+            <tr class="border-b border-neutral-200 dark:border-white/10">
+                <th scope="col" class="px-18 py-4 w-60">Klienta atsauce</th>
+                <td scope="col" class="px-18 py-4">
+                    {{member.type}}
+                </td>
+            </tr>
+            <tr class="border-b border-neutral-200 dark:border-white/10">
+                <th class="px-18 py-4">Uzņēmums vai fiziska persona?</th>
+                <td class="px-18 py-4">
+                    {{member.morphy == 'mor' ? 'Uzņēmums' : 'Fiziska persona'}}
+                </td>
+            </tr>
+            <tr class="border-b border-neutral-200 dark:border-white/10">
+                <th class="whitespace-nowrap px-18 py-4">Vārds</th>
+                <td class="px-18 py-4">
+                    {{member.firstname}}
+                </td>
+            </tr>
+            <tr class="border-b border-neutral-200 dark:border-white/10">
+                <th class="px-18 py-4">Uzvārds</th>
+                <td class="px-18 py-4">
+                    {{member.lastname}}
+                </td>
+            </tr>
+            <tr class="border-b border-neutral-200 dark:border-white/10">
+                <th class="px-18 py-4">Dzimums</th>
+                <td class="px-18 py-4">
+                    {{member.gender == 'male' ? 'Vīrieties' : 'Sieviete'}}
+                </td>
+            </tr>
+            <tr class="border-b border-neutral-200 dark:border-white/10">
+                <th class="px-18 py-4">Uzņēmuma nosaukums</th>
+                <td class="px-18 py-4">
+                    {{member.company}}
+                </td>
+            </tr>
+            <tr class="border-b border-neutral-200 dark:border-white/10">
+                <th class="px-18 py-4">E-pasts</th>
+                <td class="px-18 py-4">
+                    {{member.email}}
+                </td>
+            </tr>
+            <tr class="border-b border-neutral-200 dark:border-white/10">
+                <th class="px-18 py-4">Valsts</th>
+                <td class="px-18 py-4">
+                    <mat-form-field class="w-80">
+                        <mat-select required disabled [(ngModel)]="member.country_id" name="country_id">
+                            <mat-option *ngFor="let country of countries" [value]="country.id">{{country.label}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr class="border-b border-neutral-200 dark:border-white/10">
+                <th class="px-18 py-4">Pilsēta</th>
+                <td class="px-18 py-4">
+                    {{member.town}}
+                </td>
+            </tr>
+            <tr class="border-b border-neutral-200 dark:border-white/10">
+                <th class="px-18 py-4">Adrese</th>
+                <td class="px-18 py-4">
+                    {{member.address}}
+                </td>
+            </tr>
+            <tr class="border-b border-neutral-200 dark:border-white/10">
+                <th class="px-18 py-4">Pasta indekss</th>
+                <td class="px-18 py-4">
+                    {{member.zip}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+          
+    <div class="flex items-center justify-end border-t -mx-8 px-8 py-5">
+        <button
+            class="px-6 ml-3"
+            mat-flat-button
+            [color]="'primary'"
+            (click)="update()">
+            Rediģēt
+        </button>
+    </div>
+</div>

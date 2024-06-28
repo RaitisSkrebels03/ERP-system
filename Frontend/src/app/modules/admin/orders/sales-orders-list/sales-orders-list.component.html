@@ -1,0 +1,48 @@
+<div class="flex flex-col justify-content w-full text-left mx-12">
+
+    <div class="flex flex-row justify-between mt-4">
+        <button mat-raised-button color="accent" (click)="createNewOrder()" class="mr-2">Pievienot pasūtījumu!</button>
+        <div>
+            <b class="mr-2">Meklēt pēc atsauces:</b>
+            <mat-form-field style="width: 200px;">
+              <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Ievadiet atsauci...">
+            </mat-form-field>
+        </div>
+    </div>
+
+    <table mat-table [dataSource]="ordersList" class="bg-white border border-gray-300 my-6" matSort (matSortChange)="announceSortChange($event)">
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef class="py-2 px-3 border-b" mat-sort-header sortActionDescription="Sort by Id"> Id </th>
+            <td mat-cell *matCellDef="let order" class="py-2 px-3 border-b"> {{ order.id }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="ref">
+            <th mat-header-cell *matHeaderCellDef class="py-2 px-3 border-b" mat-sort-header sortActionDescription="Sort by ref"> Atsauce </th>
+            <td mat-cell *matCellDef="let order" class="py-2 px-3 border-b"> {{ order.ref }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef class="py-2 px-3 border-b" mat-sort-header sortActionDescription="Sort by date"> Datums </th>
+            <td mat-cell *matCellDef="let order" class="py-2 px-3 border-b"> {{ unixTimestampToHtmlDate(order.date) }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="deliveryDate">
+            <th mat-header-cell *matHeaderCellDef class="py-2 px-3 border-b" mat-sort-header sortActionDescription="Sort by deliveryDate"> Piegādes datums </th>
+            <td mat-cell *matCellDef="let order" class="py-2 px-3 border-b"> {{ unixTimestampToHtmlDate(order.delivery_date) }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="py-2 px-3 border-b"> Darbības </th>
+            <td mat-cell *matCellDef="let order" class="py-2 px-3 border-b">
+                <button mat-stroked-button color="primary" class="mx-1 pl-2" (click)="openOrderDetails(order.id)"><mat-icon>visibility</mat-icon> Apskatīt</button>
+                <button mat-stroked-button color="primary" class="mx-1 pl-2"  (click)="updateOrder(order.id)"><mat-icon>edit</mat-icon> Rediģēt</button>
+                <button mat-stroked-button color="warn" class="mx-1" (click)="deleteOrder(order.id)">Dzēst</button>
+            </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="['id', 'ref', 'date', 'deliveryDate', 'actions']"></tr>
+        <tr mat-row *matRowDef="let order; columns: ['id', 'ref', 'date', 'deliveryDate', 'actions'];" class="hover:bg-gray-100"></tr>
+    </table>
+    <mat-paginator [pageSize]="8" [pageSizeOptions]="[8, 16, 24]" showFirstLastButtons></mat-paginator>
+</div>

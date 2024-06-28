@@ -1,0 +1,38 @@
+<div class="flex flex-col justify-content w-full text-left mx-96">
+    <table class="min-w-full text-left text-lg font-light text-surface dark:text-white bg-white border border-gray-300 my-6 rounded-lg">
+        <tbody>
+            <tr class="border-b border-neutral-200 dark:border-white/10">
+                <th scope="col" class="px-18 py-4 w-60">Klienta atsauce</th>
+                <td scope="col" class="px-18 py-4">
+                    {{memberType.ref}}
+                </td>
+            </tr>
+            <tr class="border-b border-neutral-200 dark:border-white/10">
+                <th class="px-18 py-4">Projekts</th>
+                <td class="px-18 py-4">
+                    {{memberType.label}}
+                </td>
+            </tr>
+            <tr class="border-b border-neutral-200 dark:border-white/10">
+                <th class="whitespace-nowrap px-18 py-4">Datums</th>
+                <td class="px-18 py-4">
+                    {{memberType.morphy == 'mor' ? 'Uzņēmums' : 'Fiziska persona'}}
+                </td>
+            </tr>
+            <tr class="border-b border-neutral-200 dark:border-white/10">
+                <th class="px-18 py-4">Sveiciena e-pasts</th>
+                <td class="px-18 py-4" [innerHTML]="memberType.mail_valid"></td>
+            </tr>
+        </tbody>
+    </table>
+          
+    <div class="flex items-center justify-end border-t -mx-8 px-8 py-5">
+        <button
+            class="px-6 ml-3"
+            mat-flat-button
+            [color]="'primary'"
+            (click)="update()">
+            Rediģēt
+        </button>
+    </div>
+</div>

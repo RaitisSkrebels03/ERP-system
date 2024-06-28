@@ -1,0 +1,88 @@
+<div class="flex flex-col justify-content w-full text-left mx-12">
+    <form class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden">
+        <p class="text-lg font-medium">Pamatinformācija par lietotāju</p>
+        <p class="text-secondary mb-8">
+            Lūdzu, norādiet pamatinformāciju par lietotāju.
+        </p>
+        <fuse-alert [type]="'warn'" [ngClass]="{'hidden': !errorAlert}">
+            <span fuseAlertTitle>Paziņojums par kļūdu</span>
+            Pārbaudītiet visus ievadītos datus un pārliecinieties, ka obligātie lauki ir aizpildīti!
+        </fuse-alert><br/>
+        
+        <p class="font-medium ml-1 mb-1">Vārds</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Vārds'"
+                    [(ngModel)]="user.firstname"
+                    name="firstname">
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Uzvārds</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Uzvārds'"
+                    [(ngModel)]="user.lastname"
+                    name="lastname">
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Lietotājvārds</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Lietotājvārds'"
+                    [(ngModel)]="user.login"
+                    name="login">
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">E-pasts</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'E-pasts'"
+                    [(ngModel)]="user.email"
+                    name="email">
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Piezīmes</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <textarea
+                    matInput
+                    [placeholder]="'Piezīmes'"
+                    [(ngModel)]="user.note_public"
+                    name="note_public"
+                    row="5">
+                </textarea>
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Vai ir admina tiesības?</p>
+        <div class="flex">
+            <mat-form-field class="w-80">
+                <mat-select required [(ngModel)]="user.admin" name="admin">
+                  <mat-option [value]="1">Ir</mat-option>
+                  <mat-option [value]="0">Nav</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700">
+            <button mat-button
+            (click)="cancel()">
+                Atcelt
+            </button>
+            <button
+                class="px-6 ml-3"
+                mat-flat-button
+                [color]="'primary'"
+                (click)="save()">
+                Saglabāt
+            </button>
+        </div>
+    </form>
+</div>

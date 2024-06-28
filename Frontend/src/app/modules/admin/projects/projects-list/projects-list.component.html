@@ -1,0 +1,58 @@
+<div class="flex flex-col justify-content w-full text-left mx-12">
+    
+    <div class="flex flex-row justify-between mt-4">
+        <button mat-raised-button class="mr-3" color="accent" (click)="createNewProject()">Pievienot jaunu projektu!</button>
+        <div>
+            <b class="mr-2">Meklēt pēc nosaukuma:</b>
+            <mat-form-field style="width: 200px;">
+              <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Ievadiet nosaukumu...">
+            </mat-form-field>
+        </div>
+    </div>
+
+    <table mat-table [dataSource]="projectsList" class="bg-white border border-gray-300 my-6" matSort (matSortChange)="announceSortChange($event)">
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef class="py-2 px-3 border-b" mat-sort-header sortActionDescription="Sort by Id"> Id </th>
+            <td mat-cell *matCellDef="let project" class="py-2 px-3 border-b"> {{ project.id }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="ref">
+            <th mat-header-cell *matHeaderCellDef class="py-2 px-3 border-b" mat-sort-header sortActionDescription="Sort by ref"> Atsauce </th>
+            <td mat-cell *matCellDef="let project" class="py-2 px-3 border-b"> {{ project.ref }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef class="py-2 px-3 border-b" mat-sort-header sortActionDescription="Sort by title"> Nosaukums </th>
+            <td mat-cell *matCellDef="let project" class="py-2 px-3 border-b"> {{ project.title }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="budget_amount">
+            <th mat-header-cell *matHeaderCellDef class="py-2 px-3 border-b" mat-sort-header sortActionDescription="Sort by budget_amount"> Budžets (€) </th>
+            <td mat-cell *matCellDef="let project" class="py-2 px-3 border-b"> {{ project.budget_amount?.slice(0, -9) }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="tasks">
+            <th mat-header-cell *matHeaderCellDef class="py-2 px-3 border-b"> Uzdevumi </th>
+            <td mat-cell *matCellDef="let project" class="py-2 px-3 border-b">
+                <button mat-stroked-button color="primary" class="mr-1" (click)="openTasksList(project.id)"> Uzdevumi</button>
+                <button mat-raised-button class="mr-1" color="accent" (click)="createNewTask(project.id)">Pievienot jaunu uzdevumu</button>
+            </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="py-2 px-3 border-b"> Darbības </th>
+            <td mat-cell *matCellDef="let project" class="py-2 px-3 border-b">
+                <button mat-stroked-button color="primary" class="mr-1 pl-2" (click)="openProjectDetails(project.id)"> <mat-icon>visibility</mat-icon> Apskatīt</button>
+                <button mat-stroked-button color="primary" class="mr-1 pl-2" (click)="updateProject(project.id)"> <mat-icon>edit</mat-icon> Rediģēt</button>
+                <button mat-stroked-button color="warn" class="mr-1" (click)="deleteProject(project.id)"> Dzēst</button>
+            </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="['id', 'ref', 'title', 'budget_amount', 'tasks', 'actions']"></tr>
+        <tr mat-row *matRowDef="let project; columns: ['id', 'ref', 'title', 'budget_amount', 'tasks', 'actions'];" class="hover:bg-gray-100"></tr>
+    </table>
+
+    <mat-paginator [pageSize]="8" [pageSizeOptions]="[8, 16, 24]" showFirstLastButtons></mat-paginator>
+
+</div>

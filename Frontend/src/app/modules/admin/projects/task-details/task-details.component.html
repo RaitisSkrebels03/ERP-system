@@ -1,0 +1,62 @@
+<div class="flex flex-col justify-content w-full text-left mx-96">
+    <table class="min-w-full text-left text-lg font-light text-surface dark:text-white bg-white border border-gray-300 my-6 rounded-lg">
+      <tbody>
+        <tr class="border-b border-neutral-200 dark:border-white/10">
+            <th scope="col" class="px-18 py-4 w-60">Uzdevuma atsauce</th>
+            <td scope="col" class="px-18 py-4">{{task.ref}}</td>
+        </tr>
+        <tr class="border-b border-neutral-200 dark:border-white/10">
+            <th class="px-18 py-4">Nosaukums</th>
+            <td class="px-18 py-4">{{task.label}}</td>
+        </tr>
+        <tr class="border-b border-neutral-200 dark:border-white/10">
+            <th class="whitespace-nowrap px-18 py-4">Apraksts</th>
+            <td class="px-18 py-4" [innerHTML]="task.description"></td>
+        </tr>
+        <tr class="border-b border-neutral-200 dark:border-white/10">
+            <th class="px-18 py-4">Sākums</th>
+            <td class="px-18 py-4">
+                <input matInput type="datetime-local" placeholder="start date" [(ngModel)]="dateStart" name="dateStart">
+            </td>
+        </tr>
+        <tr class="border-b border-neutral-200 dark:border-white/10">
+          <th class="px-18 py-4">Beigas</th>
+          <td class="px-18 py-4">
+            <input matInput type="datetime-local" placeholder="start date" [(ngModel)]="dateEnd" name="dateEnd">
+          </td>
+        </tr>
+        <tr class="border-b border-neutral-200 dark:border-white/10">
+          <th class="px-18 py-4">Darba apjoms (stundās un minūtēs)</th>
+          <td class="px-18 py-4">
+            <mat-form-field class="flex-auto" class="mr-3">
+              <input matInput type="number" [(ngModel)]="hours" name="hours" disabled min="0"/> 
+            </mat-form-field>
+            <mat-form-field class="flex-auto" class="ml-3">
+              <input matInput type="number" [(ngModel)]="minutes" name="minutes" disabled min="0" max="60"/>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr class="border-b border-neutral-200 dark:border-white/10">
+          <th class="px-18 py-4">Progress</th>
+            <td class="px-18 py-4">
+              {{task.progress}}%
+            </td>
+        </tr>
+        <tr class="border-b border-neutral-200 dark:border-white/10">
+          <th class="px-18 py-4">Budžets (eiro)</th>
+          <td class="px-18 py-4">
+            {{task.budget_amount?.slice(0, -9)}} 
+          </td>
+        </tr>
+      </tbody>
+    </table>
+          <div class="flex items-center justify-end border-t -mx-8 px-8 py-5">
+            <button
+                class="px-6 ml-3"
+                mat-flat-button
+                [color]="'primary'"
+                (click)="update()">
+                Rediģēt
+            </button>
+        </div>
+    </div>

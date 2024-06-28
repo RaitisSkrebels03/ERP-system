@@ -1,0 +1,8 @@
+input, textarea{
+    color: #000000 !important;
+}
+
+.task:hover{
+    cursor: pointer !important;
+    background-color: rgb(235, 241, 246);
+}

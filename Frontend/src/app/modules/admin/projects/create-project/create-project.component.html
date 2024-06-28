@@ -1,0 +1,96 @@
+<div class="flex flex-col justify-content w-full text-left mx-12">
+    <form class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden">
+        <p class="text-lg font-medium">Pamatinformācija par projektu</p>
+        <p class="text-secondary mb-8">
+            Lūdzu, norādiet pamatinformāciju par projektu, ieskaitot nosaukumu, atsauci, aprakstu.
+        </p>
+        <fuse-alert [type]="'warn'" [ngClass]="{'hidden': !errorAlert}">
+            <span fuseAlertTitle>Paziņojums par kļūdu</span>
+            Pārbaudītiet visus ievadītos datus un pārliecinieties, ka obligātie lauki ir aizpildīti!
+        </fuse-alert><br/>
+        <p class="font-medium ml-1 mb-1">Produkta atsauce</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Produkta atsauce'"
+                    [(ngModel)]="project.ref"
+                    name="ref"
+                    required>
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Nosaukums</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Nosaukums'"
+                    [(ngModel)]="project.title"
+                    name="title"
+                    required>
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-2">Apraksts</p>
+        <div class="flex">
+            <editor class="w-full" apiKey="7mw30hi1hg2t8ifh31b587e0cvsfjrwannjoegg2hdg148f1"
+                [init]="{
+                    height: 300,
+                    base_url: '/tinymce',
+                    suffix: '.min',
+                    plugins: 'lists link image table wordcount'
+                }"
+                [(ngModel)]="project.description"
+                name="description"
+            ></editor>
+        </div>
+
+        <mat-divider class="mt-6 mb-10"></mat-divider>
+
+        <p class="text-lg font-medium">Projekta izpildes laiki</p>
+        <p class="text-secondary mb-8">
+            Lūdzu, norādiet informāciju projekta izpildes laikiem
+        </p>
+        <div class="flex flex-row">
+            <div class="mr-6">
+                <mat-label class="font-semibold">Sākums</mat-label><br/><br/>
+                <input matInput type="date" placeholder="Sākuma datums" [(ngModel)]="dateStart" name="dateStart" (change)="onStartDateChange()">
+            </div>
+            <div>
+                <mat-label class="font-semibold">Beigas</mat-label><br/><br/>
+                <input matInput type="date" placeholder="Beigu datums" [(ngModel)]="dateEnd" name="dateEnd" (change)="onEndDateChange()">
+            </div>
+        </div>
+
+    
+        <mat-divider class="mt-6 mb-10"></mat-divider>
+    
+        <p class="text-lg font-medium">Budžets</p>
+        <p class="text-secondary mb-8">
+            Lūdzu, norādiet informāciju par projekta budžētu
+        </p>
+        <p class="font-medium ml-1 mb-1">Budžets (eiro)</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Budžets (eiro)'"
+                    [(ngModel)]="project.budget_amount"
+                    name="budgetAmount">
+            </mat-form-field>
+        </div>
+
+        <div class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700">
+            <button mat-button
+            (click)="cancel()">
+                Atcelt
+            </button>
+            <button
+                class="px-6 ml-3"
+                mat-flat-button
+                [color]="'primary'"
+                (click)="save()">
+                Saglabāt
+            </button>
+        </div>
+    </form>
+</div>

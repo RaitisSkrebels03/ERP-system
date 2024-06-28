@@ -1,0 +1,52 @@
+<div class="flex flex-col justify-content w-full text-left mx-12">
+
+    <div class="flex flex-row justify-between mt-4">
+        <button mat-raised-button color="accent" (click)="createNewBill()">Pievienot jaunu rēķinu!</button>
+        <div>
+            <b class="mr-2">Meklēt pēc nosaukuma:</b>
+            <mat-form-field style="width: 200px;">
+              <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Ievadiet nosaukumu...">
+            </mat-form-field>
+        </div>
+    </div>
+
+    <table mat-table [dataSource]="billsList" class="bg-white border border-gray-300 my-6" matSort (matSortChange)="announceSortChange($event)">
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef class="py-2 px-3 border-b" mat-sort-header sortActionDescription="Sort by Id"> Id </th>
+            <td mat-cell *matCellDef="let bill" class="py-2 px-3 border-b"> {{ bill.id }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="ref">
+            <th mat-header-cell *matHeaderCellDef class="py-2 px-3 border-b" mat-sort-header sortActionDescription="Sort by ref"> Atsauce </th>
+            <td mat-cell *matCellDef="let bill" class="py-2 px-3 border-b"> {{ bill.ref }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="label">
+            <th mat-header-cell *matHeaderCellDef class="py-2 px-3 border-b" mat-sort-header sortActionDescription="Sort by label"> Nosaukums </th>
+            <td mat-cell *matCellDef="let bill" class="py-2 px-3 border-b"> {{ bill.label }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="total_cost">
+            <th mat-header-cell *matHeaderCellDef class="py-2 px-3 border-b" mat-sort-header sortActionDescription="Sort by total_cost"> Kopējās izmaksas</th>
+            <td mat-cell *matCellDef="let bill" class="py-2 px-3 border-b"> {{ bill.total_cost }} </td>
+        </ng-container>
+
+  
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="py-2 px-3 border-b"> Darbības </th>
+            <td mat-cell *matCellDef="let bill" class="py-2 px-3 border-b">
+                <button mat-stroked-button color="primary" class="mr-1 pl-2" (click)="openBillDetails(bill.id)"> <mat-icon>visibility</mat-icon> Apskatīt</button>
+                <button mat-stroked-button color="primary" class="mr-1 pl-2" (click)="updateBill(bill.id)"> <mat-icon>edit</mat-icon> Rediģēt</button>
+                <button mat-stroked-button color="warn" class="mr-1" (click)="deleteBill(bill.id)"> Dzēst</button>
+            </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="['id', 'ref', 'label', 'actions']"></tr>
+        <tr mat-row *matRowDef="let bill; columns: ['id', 'ref', 'label','actions'];" class="hover:bg-gray-100"></tr>
+    </table>
+
+    <mat-paginator [pageSize]="8" [pageSizeOptions]="[8, 16, 24]" showFirstLastButtons></mat-paginator>
+
+</div>
+

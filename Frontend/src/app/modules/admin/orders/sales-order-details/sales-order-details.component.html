@@ -1,0 +1,78 @@
+<div class="flex flex-col justify-content w-full text-left mx-96">
+    <table class="min-w-full text-left text-lg font-light text-surface dark:text-white bg-white border border-gray-300 my-6 rounded-lg">
+        <tbody>
+            <tr class="border-b border-neutral-200 dark:border-white/10">
+                <th scope="col" class="px-18 py-4 w-60">Klienta atsauce</th>
+                <td scope="col" class="px-18 py-4">
+                    {{order.ref_customer}}
+                </td>
+            </tr>
+            <tr class="border-b border-neutral-200 dark:border-white/10">
+                <th class="px-18 py-4">Projekts</th>
+                <td class="px-18 py-4">
+                    <mat-form-field class="w-80">
+                        <mat-select [(ngModel)]="order.fk_project" name="fk_project">
+                            <mat-option *ngFor="let project of projects" [value]="project.id">{{project.title}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr class="border-b border-neutral-200 dark:border-white/10">
+                <th class="whitespace-nowrap px-18 py-4">Datums</th>
+                <td class="px-18 py-4">
+                    <input matInput disabled type="date" [(ngModel)]="date" name="date">
+                </td>
+            </tr>
+            <tr class="border-b border-neutral-200 dark:border-white/10">
+                <th class="px-18 py-4">Plānotais piegādes datums</th>
+                <td class="px-18 py-4">
+                    <input matInput disabled type="datetime-local" [(ngModel)]="deliveryDate" name="deliveryDate">
+                </td>
+            </tr>
+            <tr class="border-b border-neutral-200 dark:border-white/10">
+                <th class="px-18 py-4">Piegādes aizkave</th>
+                <td class="px-18 py-4">
+                    <mat-form-field class="w-80">
+                        <mat-select [(ngModel)]="order.availability_id" name="availability">
+                            <mat-option [value]="2">1 diena</mat-option>
+                            <mat-option [value]="4">3 dienas</mat-option>
+                            <mat-option [value]="7">1 nedēļa</mat-option>
+                            <mat-option [value]="8">2 nedēļas</mat-option>
+                            <mat-option [value]="10">1 mēnesis</mat-option>
+                          </mat-select>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr class="border-b border-neutral-200 dark:border-white/10">
+                <th class="px-18 py-4">Maksājuma nosacījumi</th>
+                <td class="px-18 py-4">
+                    <mat-form-field class="w-80">
+                        <mat-select [(ngModel)]="order.cond_reglement_id" name="cond_reglement_id">
+                            <mat-option [value]="1">Saņēmšanas laikā</mat-option>
+                            <mat-option [value]="6">Pasūtīšanas laikā</mat-option>
+                            <mat-option [value]="9">10 dienu laikā</mat-option>
+                            <mat-option [value]="11">14 dienu laikā</mat-option>
+                            <mat-option [value]="2">1 mēneša laikā</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr class="border-b border-neutral-200 dark:border-white/10">
+                <th class="px-18 py-4">Piezīmes</th>
+                <td class="px-18 py-4">
+                    <div [innerHTML]="order.note_public"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+          
+    <div class="flex items-center justify-end border-t -mx-8 px-8 py-5">
+        <button
+            class="px-6 ml-3"
+            mat-flat-button
+            [color]="'primary'"
+            (click)="update()">
+            Rediģēt
+        </button>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+<div class="flex flex-col justify-content w-full text-left mx-12">
+    <form class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden">
+        <p class="text-lg font-medium">Pamatinformācija par dalībnieka veidu</p>
+        <p class="text-secondary mb-8">
+            Lūdzu, norādiet pamatinformāciju par dalībnieku veidu.
+        </p>
+        <fuse-alert [type]="'warn'" [ngClass]="{'hidden': !errorAlert}">
+            <span fuseAlertTitle>Paziņojums par kļūdu</span>
+            Pārbaudītiet visus ievadītos datus un pārliecinieties, ka obligātie lauki ir aizpildīti!
+        </fuse-alert><br/>
+        <p class="font-medium ml-1 mb-1">Atsauce</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Atsauce'"
+                    [(ngModel)]="memberType.ref"
+                    name="ref"
+                    required>
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Nosaukums</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Nosaukums'"
+                    [(ngModel)]="memberType.label"
+                    name="label"
+                    required>
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Statuss</p>
+        <div class="flex">
+            <mat-form-field class="w-80">
+                <mat-select required [(ngModel)]="memberType.status" name="status">
+                  <mat-option value="1">Aktīvs</mat-option>
+                  <mat-option value="0">Neaktīvs</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Uzņēmums vai fiziska persona?</p>
+        <div class="flex">
+            <mat-form-field class="w-80">
+                <mat-select required [(ngModel)]="memberType.morphy" name="morphy">
+                  <mat-option value="mor">Uzņēmums</mat-option>
+                  <mat-option value="phy">Fiziska persona</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Vai ir balsstiesības?</p>
+        <div class="flex">
+            <mat-form-field class="w-80">
+                <mat-select required [(ngModel)]="memberType.vote" name="vote">
+                  <mat-option value="1">Jā</mat-option>
+                  <mat-option value="0">Nē</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Sveiciena e-pasta saturs</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <textarea
+                    matInput
+                    [placeholder]="'Sveiciena e-pasta saturs'"
+                    [(ngModel)]="memberType.mail_valid"
+                    name="mailValid">
+                </textarea>
+            </mat-form-field>
+        </div>
+        <div class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700">
+            <button mat-button
+            (click)="cancel()">
+                Atcelt
+            </button>
+            <button
+                class="px-6 ml-3"
+                mat-flat-button
+                [color]="'primary'"
+                (click)="save()">
+                Saglabāt
+            </button>
+        </div>
+    </form>
+</div>

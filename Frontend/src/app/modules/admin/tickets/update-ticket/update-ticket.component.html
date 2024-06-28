@@ -1,0 +1,92 @@
+<div class="flex flex-col justify-content w-full text-left mx-12">
+    <form class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden">
+        <p class="text-lg font-medium">Pamatinformācija par pieprasījumu</p>
+        <p class="text-secondary mb-8">
+            Lūdzu, norādiet pamatinformāciju par pieprasījumu
+        </p>
+        <fuse-alert [type]="'warn'" [ngClass]="{'hidden': !errorAlert}">
+            <span fuseAlertTitle>Paziņojums par kļūdu</span>
+            Pārbaudītiet visus ievadītos datus un pārliecinieties, ka obligātie lauki ir aizpildīti!
+        </fuse-alert><br/>
+        <p class="font-medium ml-1 mb-1">Atsauce</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Atsauce'"
+                    [(ngModel)]="ticket.ref"
+                    name="ref"
+                    required>
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Tēma</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Tēma'"
+                    [(ngModel)]="ticket.subject"
+                    name="subject"
+                    required>
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Ziņojums</p>
+        <div class="flex">
+            <editor class="w-full" apiKey="7mw30hi1hg2t8ifh31b587e0cvsfjrwannjoegg2hdg148f1"
+                [init]="{
+                    height: 300,
+                    base_url: '/tinymce',
+                    suffix: '.min',
+                    plugins: 'lists link image table wordcount'
+                }"
+                [(ngModel)]="ticket.message"
+                name="message"
+            ></editor>
+        </div>
+        <p class="font-medium ml-1 mb-1">Pieprasījuma veids</p>
+        <mat-form-field class="w-80">
+            <mat-select required [(ngModel)]="ticket.type_code" name="type_code">
+                <mat-option value="COM">Komerciāls jautājums</mat-option>
+                <mat-option value="HELP">Lūgums pēc funkcionālās palīdzības</mat-option>
+                <mat-option value="ISSUE">Problēma vai kļūda</mat-option>
+                <mat-option value="REQUEST">Izmaiņu vai uzlabojumu pieprasījums</mat-option>
+                <mat-option value="OTHER">Cits</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <p class="font-medium ml-1 mb-1">Projekts</p>
+        <mat-form-field class="w-80">
+            <mat-select required [(ngModel)]="projectId" name="fk_project">
+                <mat-option *ngFor="let project of projects" [value]="project.id">{{project.title}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <p class="font-medium ml-1 mb-1">Iesaistītā persona</p>
+        <mat-form-field class="w-80">
+            <mat-select required [(ngModel)]="ticket.fk_user_assign" name="fk_user_assign">
+                <mat-option *ngFor="let user of users" [value]="user.id">{{user.firstname }} {{user.lastname }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <p class="font-medium ml-1 mb-1">Nozīmīgums</p>
+        <mat-form-field class="w-80">
+            <mat-select required [(ngModel)]="ticket.severity_code" name="severity_code">
+                <mat-option value="LOW">Zems</mat-option>
+                <mat-option value="NORMAL">Vidējs</mat-option>
+                <mat-option value="HIGH">Augsts</mat-option>
+                <mat-option value="BLOCKING">Kritisks</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700">
+            <button mat-button
+            (click)="cancel()">
+                Atcelt
+            </button>
+            <button
+                class="px-6 ml-3"
+                mat-flat-button
+                [color]="'primary'"
+                (click)="save()">
+                Saglabāt
+            </button>
+        </div>
+    </form>
+</div>

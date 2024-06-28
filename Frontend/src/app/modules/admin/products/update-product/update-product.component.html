@@ -1,0 +1,215 @@
+<div class="flex flex-col justify-content w-full text-left mx-12">
+    <form class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden">
+        <p class="text-lg font-medium">Pamatinformācija par produktu</p>
+        <p class="text-secondary mb-8">
+            Lūdzu, norādiet pamatinformāciju par produktu, ieskaitot nosaukumu, svītrkodu, atsauci, kā arī produkta aprakstu.
+        </p>
+        <fuse-alert [type]="'warn'" [ngClass]="{'hidden': !errorAlert}">
+            <span fuseAlertTitle>Paziņojums par kļūdu</span>
+            Pārbaudiet visus ievadītos datus un pārliecinieties, ka obligātie lauki ir aizpildīti!
+        </fuse-alert><br/>
+        <p class="font-medium ml-1 mb-1">Produkta atsauce</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Produkta atsauce'"
+                    value="product.ref"
+                    [(ngModel)]="product.ref"
+                    name="ref">
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Nosaukums</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Nosaukums'"
+                    [(ngModel)]="product.label"
+                    name="label">
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Svītrkods</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto gt-xs:pl-3">
+                <input
+                    matInput
+                    [placeholder]="'Svītrkods'"
+                    [(ngModel)]="product.barcode"
+                    name="barcode">
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Apraksts</p>
+        <div class="flex">
+            <editor class="w-full" apiKey="7mw30hi1hg2t8ifh31b587e0cvsfjrwannjoegg2hdg148f1"
+                [init]="{
+                    height: 200,
+                    base_url: '/tinymce',
+                    suffix: '.min',
+                    plugins: 'lists link image table wordcount'
+                }"
+                [(ngModel)]="product.description"
+                name="description"
+            ></editor>
+        </div>
+    
+        <mat-divider class="mt-6 mb-10"></mat-divider>
+    
+        <p class="text-lg font-medium">Izmēri, svars</p>
+        <p class="text-secondary mb-8">
+            Lūdzu, norādiet produkta svaru, izmērus, virsmas laukumu un tilpumu.
+        </p>
+        <div class="flex flex-col gt-xs:flex-row">
+            <p class="font-medium ml-1 mb-1">Svars</p>
+            <div class="flex">
+                <mat-form-field class="flex-auto" >
+                    <input
+                        matInput  
+                        [placeholder]="'Svars'"
+                        [(ngModel)]="product.weight"
+                        name="weight">
+                </mat-form-field>
+                <mat-form-field style="width: 140px;" >
+                    <mat-select [placeholder]="'Mērvienība'" [(ngModel)]="product.weight_units" name="weight_units"> 
+                        <mat-option value="-3">Grami</mat-option>
+                        <mat-option value="0">Kilogrami</mat-option>
+                    </mat-select>    
+                </mat-form-field>
+            </div>
+            <p class="font-medium ml-1 mb-1">Izmēri (augstums, platums un garums)</p>
+            <div class="flex">
+                <mat-form-field class="flex-auto">
+                    <input
+                    matInput  
+                    [placeholder]="'Augstums'"
+                    [(ngModel)]="product.height"
+                    name="height">
+                </mat-form-field>            
+                <mat-form-field class="flex-auto">
+                    <input
+                    matInput  
+                    [placeholder]="'Platums'"
+                    [(ngModel)]="product.width"
+                    name="width">
+                </mat-form-field>
+                <mat-form-field class="flex-auto"> 
+                    <input
+                    matInput  
+                    [placeholder]="'Garums'"
+                    [(ngModel)]="product.length"
+                    name="length">
+                </mat-form-field> 
+                <mat-form-field style="width: 140px;" >
+                    <mat-select [placeholder]="'Mērvienība'" [(ngModel)]="product.length_units" name="length_units">
+                        <mat-option value="-2">Centimetri</mat-option>
+                        <mat-option value="0">Metri</mat-option>
+                    </mat-select>    
+                </mat-form-field>
+            </div>
+        </div>
+        <p class="font-medium ml-1 mb-1">Virsmas laukums</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Virsmas laukums'"
+                    [(ngModel)]="product.surface"
+                    name="surface">
+            </mat-form-field>
+            <mat-form-field style="width: 140px;" >
+                <mat-select [placeholder]="'Mērvienība'" [(ngModel)]="product.surface_units" name="surface_units">
+                    <mat-option value="-4">cm²</mat-option>
+                    <mat-option value="0">m²</mat-option>
+                </mat-select>    
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Tilpums</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Tilpums'"
+                    [(ngModel)]="product.volume"
+                    name="volume">
+            </mat-form-field>
+            <mat-form-field style="width: 140px;" >
+                <mat-select [placeholder]="'Mērvienība'" [(ngModel)]="product.volume_units" name="volume_units">
+                    <mat-option value="-6">cm³</mat-option>
+                    <mat-option value="0">m³</mat-option>
+                </mat-select>    
+            </mat-form-field>
+        </div>
+
+        <mat-divider class="mt-6 mb-10"></mat-divider>
+
+        <p class="text-lg font-medium">Cena</p>
+        <p class="text-secondary mb-8">
+            Lūdzu, norādiet produkta cenu, kā arī pārējo informāciju
+        </p>
+
+        <p class="font-medium ml-1 mb-1">Cena (ar nodokļiem)</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'10'"
+                    [(ngModel)]="product.price"
+                    name="price"
+                    required>
+            </mat-form-field>
+        </div>
+
+        <div class="flex flex-col mt-8 gt-sm:mt-0 gt-sm:ml-16">
+            <span class="font-semibold mb-2">Vai paredzēts pārdošanai?</span>
+            <mat-radio-group
+                class="flex flex-col"
+                [color]="'primary'"
+                [(ngModel)]="product.status"
+                name="status">
+                <mat-radio-button
+                    class="mb-2"
+                    value="1">
+                    Jā
+                </mat-radio-button>
+                <mat-radio-button
+                    class="mb-2"
+                    value="0">
+                    Nē
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="flex flex-col mt-8 gt-sm:mt-0 gt-sm:ml-16">
+            <span class="font-semibold mb-2">Vai paredzēts iegādei?</span>
+            <mat-radio-group
+                class="flex flex-col"
+                [color]="'primary'"
+                [(ngModel)]="product.status_buy"
+                name="status_buy">
+                <mat-radio-button
+                    class="mb-2"
+                    value="1">
+                    Jā
+                </mat-radio-button>
+                <mat-radio-button
+                    class="mb-2"
+                    value="0">
+                    Nē
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+    
+        <div class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700">
+            <button mat-button
+            (click)="cancel()">
+                Atcelt
+            </button>
+            <button
+                class="px-6 ml-3"
+                mat-flat-button
+                [color]="'primary'"
+                (click)="save()">
+                Saglabāt
+            </button>
+        </div>
+    </form>
+</div>

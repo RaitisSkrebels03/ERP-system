@@ -1,0 +1,146 @@
+<div class="flex flex-col justify-content w-full text-left mx-12">
+    <form class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden">
+        <p class="text-lg font-medium">Pamatinformācija par dalībnieku</p>
+        <p class="text-secondary mb-8">
+            Lūdzu, norādiet pamatinformāciju par dalībnieku.
+        </p>
+        <fuse-alert [type]="'warn'" [ngClass]="{'hidden': !errorAlert}">
+            <span fuseAlertTitle>Paziņojums par kļūdu</span>
+            Pārbaudītiet visus ievadītos datus un pārliecinieties, ka obligātie lauki ir aizpildīti!
+        </fuse-alert><br/>
+       <p class="font-medium ml-1 mb-1">Dalībnieka veids</p>
+       <mat-form-field class="w-80">
+        <mat-select required [(ngModel)]="member.type" name="type">
+          @for (type of memberTypes; track type) {
+            <mat-option [value]="type.label">{{type.label}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <p class="font-medium ml-1 mb-1">Uzņēmums vai fiziska persona?</p>
+        <div class="flex">
+            <mat-form-field class="w-80">
+                <mat-select required [(ngModel)]="member.morphy" name="morphy">
+                  <mat-option value="mor">Uzņēmums</mat-option>
+                  <mat-option value="phy">Fiziska persona</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div [hidden]="!isPhysicalPerson()">
+            <p class="text-lg font-medium mt-8">Informācija par fizisko personu</p>
+        <p class="text-secondary mb-8">
+            Lūdzu, norādiet dalībnieka vārdu, uzvārdu un dzimumu
+        </p>
+        <p class="font-medium ml-1 mb-1">Vārds</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Vārds'"
+                    [(ngModel)]="member.firstname"
+                    name="firstName"
+                    [required]="isPhysicalPerson()">
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Uzvārds</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Uzvārds'"
+                    [(ngModel)]="member.lastname"
+                    name="lastName"
+                    [required]="isPhysicalPerson()">
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Dzimums</p>
+        <div class="flex">
+            <mat-form-field class="w-80">
+                <mat-select [(ngModel)]="member.gender" name="gender">
+                  <mat-option value="male">Vīrietis</mat-option>
+                  <mat-option value="woman">Sieviete</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        </div>
+    <div [hidden]="!isCompany()">
+        <p class="text-lg font-medium mt-8">Infomrācija par uzņēmumu</p>
+        <p class="text-secondary mb-8">
+            Lūdzu, norādiet uzņēmuma nosaukumu
+        </p>
+        <p class="font-medium ml-1 mb-1">Uzņēmuma nosaukums</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Kompānija'"
+                    [(ngModel)]="member.company"
+                    name="company"
+                    required>
+            </mat-form-field>
+        </div>
+    </div>
+        <p class="text-lg font-medium mt-8">E-pasts, adrese</p>
+        <p class="text-secondary mb-8">
+            Lūdzu, norādiet informāciju par dalībnieka e-pastu, adresi, pasta indeksu.
+        </p>
+        <p class="font-medium ml-1 mb-1">E-pasts</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'email@email.com'"
+                    [(ngModel)]="member.email"
+                    name="email">
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Valsts</p>
+        <mat-form-field class="w-80">
+            <mat-select required [(ngModel)]="member.country_id" name="country_id">
+                <mat-option *ngFor="let country of countries" [value]="country.id">{{country.label}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <p class="font-medium ml-1 mb-1">Pilsētas</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Pilsēta'"
+                    [(ngModel)]="member.town"
+                    name="town">
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Adrese</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Adrese'"
+                    [(ngModel)]="member.address"
+                    name="address">
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Pasta indekss</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Pasta indekss'"
+                    [(ngModel)]="member.zip"
+                    name="zip">
+            </mat-form-field>
+        </div>
+        <div class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700">
+            <button mat-button
+            (click)="cancel()">
+                Atcelt
+            </button>
+            <button
+                class="px-6 ml-3"
+                mat-flat-button
+                [color]="'primary'"
+                (click)="save()">
+                Saglabāt
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,125 @@
+<div class="flex flex-col justify-content w-full text-left mx-12">
+    <form class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden">
+        <p class="text-lg font-medium">Pamatinformācija par trešo pusi</p>
+        <p class="text-secondary mb-8">
+            Lūdzu, norādiet pamatinformāciju par vārdu, aizstājvārdu, telefona numuru, e-pastu
+        </p>
+        <fuse-alert [type]="'warn'" [ngClass]="{'hidden': !errorAlert}">
+            <span fuseAlertTitle>Paziņojums par kļūdu</span>
+            Pārbaudītiet visus ievadītos datus un pārliecinieties, ka obligātie lauki ir aizpildīti!
+        </fuse-alert><br/>
+        <p class="font-medium ml-1 mb-1">Vārds</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Vārds'"
+                    [(ngModel)]="thirdParty.name"
+                    name="name"
+                    required>
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Aizstājvārds</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Aizstājvārds'"
+                    [(ngModel)]="thirdParty.name_alias"
+                    name="nameAlias">
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Telefona numurs</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Telefona numurs'"
+                    [(ngModel)]="thirdParty.phone"
+                    name="phone">
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">E-pasts</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'E-pasts'"
+                    [(ngModel)]="thirdParty.email"
+                    name="email">
+            </mat-form-field>
+        </div>
+        <p class="font-medium ml-1 mb-1">Mājaslapa</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'www.mywebsite.com'"
+                    [(ngModel)]="thirdParty.url"
+                    name="url">
+            </mat-form-field>
+        </div>
+
+        <mat-divider class="mt-6 mb-10"></mat-divider>
+    
+        
+        <p class="text-lg font-medium">Adrese, pasta indekss</p>
+        <p class="text-secondary mb-8">
+            Lūdzu, norādiet informāciju par trešās puses adresi un pasta indeksu
+        </p>
+
+        <p class="font-medium ml-1 mb-1">Valsts</p>
+        <mat-form-field class="w-80">
+            <mat-select required [(ngModel)]="thirdParty.country_id" name="country_id">
+                <mat-option *ngFor="let country of countries" [value]="country.id">{{country.label}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <p class="font-medium ml-1 mb-1">Pilsēta</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Pilsēta'"
+                    [(ngModel)]="thirdParty.town"
+                    name="town">
+            </mat-form-field>
+        </div>
+
+        <p class="font-medium ml-1 mb-1">Adrese (iela, mājas numurs)</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Adrese'"
+                    [(ngModel)]="thirdParty.address"
+                    name="address">
+            </mat-form-field>
+        </div>
+
+        <p class="font-medium ml-1 mb-1">Pasta indekss</p>
+        <div class="flex">
+            <mat-form-field class="flex-auto">
+                <input
+                    matInput
+                    [placeholder]="'Pasta indekss'"
+                    [(ngModel)]="thirdParty.zip"
+                    name="zip">
+            </mat-form-field>
+        </div>
+
+        <div class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700">
+            <button mat-button
+            (click)="cancel()">
+                Atcelt
+            </button>
+            <button
+                class="px-6 ml-3"
+                mat-flat-button
+                [color]="'primary'"
+                (click)="save()">
+                Saglabāt
+            </button>
+        </div>
+    </form>
+</div>
